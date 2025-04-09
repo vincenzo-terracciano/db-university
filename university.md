@@ -14,45 +14,61 @@ Modellizzare la struttura di un database per memorizzare tutti i dati riguardant
 
 **columns**:
 
-- id
-- name
+- id_department (BIGINT) - primary key - auto_increment - NOT NULL
+- name (VARCHAR(100)) - NOT NULL
 
 ## Table name `degree_courses`
 
 **columns**:
 
-- id_degree_course
-- id_department
-- name
+- id_degree_course (BIGINT) - primary key - auto_increment - NOT NULL
+- id_department (BIGINT) - foreign key - NOT NULL
+- name (VARCHAR(100)) - NOT NULL
 
 ## Table name `courses`
 
 **columns**:
 
-- id_course
-- id_degree_course
-- name
+- id_course (BIGINT) - primary key - auto_increment - NOT NULL
+- id_degree_course (BIGINT) - foreign key - NOT NULL
+- name (VARCHAR(100)) - NOT NULL
 
 ## Table name `teachers`
 
 **columns**:
 
-- id_teacher
-- name
-- lastname
+- id_teacher (BIGINT) - primary key - auto_increment - NOT NULL
+- name (VARCHAR(100)) - NOT NULL
+- lastname (VARCHAR(100)) - NOT NULL
+
+## Table name `teacher_course`
+
+**columns**:
+
+- id_teacher (BIGINT) - foreign key - NOT NULL
+- id_course (BIGINT) - foreign key - NOT NULL
 
 ## Table name `exams`
 
 **columns**:
 
-- id_exam
-- id_course
-- date_exam
+- id_exam (BIGINT) - primary key - auto_increment - NOT NULL
+- id_course (BIGINT) - foreign key - NOT NULL
+- date_exam (DATETIME()) - NOT NULL
 
 ## Table name `students`
 
 **columns**:
 
-- id_student
-- name
-- lastname
+- id_student (BIGINT) - primary key - auto_increment - NOT NULL
+- id_degree_course (BIGINT) - foreign key - NOT NULL
+- name (VARCHAR(100)) - NOT NULL
+- lastname (VARCHAR(100)) - NOT NULL
+
+## Table name `student_exam`
+
+**columns**:
+
+- id_student (BIGINT) - foreign key - NOT NULL
+- id_exam (BIGINT) - foreign key - NOT NULL
+- vote (TINYINT) - NOT NULL
