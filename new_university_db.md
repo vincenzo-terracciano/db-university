@@ -61,4 +61,12 @@ FROM `teachers`
 GROUP BY `office_address`
 
 3. Calcolare la media dei voti di ogni appello d'esame
+SELECT `exam_student`.`exam_id`, AVG(`exam_student`.`vote`) AS `vote_average`
+FROM `exam_student`
+GROUP BY `exam_student`.`exam_id`;
+
 4. Contare quanti corsi di laurea ci sono per ogni dipartimento
+SELECT `departments`.`name` AS `department_name`, COUNT(`degrees`.`id`) AS `how_much_courses`
+FROM `degrees`
+JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
+GROUP BY `departments`.`name`
