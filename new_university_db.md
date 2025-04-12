@@ -46,7 +46,12 @@ JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
 WHERE `departments`.`name` = 'Dipartimento di Matematica';
 
 7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
-
+SELECT `students`.`name`, `students`.`surname`, `courses`.`name` AS `courses_name`, COUNT(*) AS `exam_chance`, MAX(`exam_student`.`vote`)
+FROM `exam_student`
+JOIN `students` ON `exam_student`.`student_id` = `students`.`id`
+JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id`
+JOIN `courses` ON `exams`.`course_id` = `courses`.`id`
+GROUP BY `students`.`id`, `courses`.`id`
 
 
 ## GROUP BY
@@ -70,3 +75,41 @@ SELECT `departments`.`name` AS `department_name`, COUNT(`degrees`.`id`) AS `how_
 FROM `degrees`
 JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
 GROUP BY `departments`.`name`
+
+## SELECT
+1. Selezionare tutti gli insegnanti
+SELECT * 
+FROM `teachers`;
+
+2. Selezionare tutti i referenti per ogni dipartimento
+SELECT `head_of_department`
+FROM `departments`
+
+3. Selezionare tutti gli studenti il cui nome inizia per "E" (373)
+SELECT * 
+FROM `students`
+WHERE `students`.`name` LIKE 'E%';
+
+4. Selezionare tutti gli studenti che si sono iscritti nel 2021 (734)
+SELECT *
+FROM `students`
+WHERE YEAR(`enrolment_date`) = 2021
+
+5. Selezionare tutti i corsi che non hanno un sito web (676)
+SELECT * 
+FROM `courses`
+WHERE `courses`.`website` IS NULL
+
+6. Selezionare tutti gli insegnanti che hanno un numero di telefono (50)
+SELECT *
+FROM `teachers`
+WHERE `teachers`.`phone`;
+
+7. Selezionare tutti gli appelli d'esame dei mesi di giugno e luglio 2020 (2634)
+SELECT *
+FROM `exams`
+WHERE `exams`.`date` LIKE '2020-06-%' OR `exams`.`date` LIKE '2020-07-%';
+
+8. Qual è il numero totale degli studenti iscritti? (5000)
+SELECT COUNT(*) AS `total_registered_students`
+FROM `students`
